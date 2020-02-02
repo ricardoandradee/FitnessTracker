@@ -1,0 +1,19 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+$fitness-app-primary: mat-palette($mat-purple, A200, A100, A400);
+$fitness-app-accent:  mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$fitness-app-warn: mat-palette($mat-red);
+$background-color: map_get($mat-deep-purple, 50);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$fitness-app-theme: mat-light-theme($fitness-app-primary, $fitness-app-accent, $fitness-app-warn);
+
+// Insert custom background color
+$background: map-get($fitness-app-theme, background);
+$background: map_merge($background, (background: $background-color));
+$fitness-app-theme: map_merge($fitness-app-theme, (background: $background));
+
+@include angular-material-theme($fitness-app-theme);

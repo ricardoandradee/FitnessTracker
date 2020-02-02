@@ -1,0 +1,16 @@
+<section class="login-section">
+    <form fxLayout="column" fxLayoutAlign="center center" [formGroup]="loginForm" (ngSubmit)="onLogin()" fxLayoutGap="12px" novalidate>
+        <mat-form-field *ngIf="!(isLoading$ | async)">
+            <input type="email" matInput formControlName="email" placeholder="E-mail">
+            <mat-error *ngIf="!loginForm.controls['email'].errors?.required">Email is not valid</mat-error>
+            <mat-error *ngIf="loginForm.controls['email'].errors?.required">Email is required</mat-error>
+        </mat-form-field>
+        <mat-form-field *ngIf="!(isLoading$ | async)">
+            <input type="password" formControlName="password" matInput placeholder="Password">
+            <mat-hint>At least 6 characters needed</mat-hint>
+            <mat-error *ngIf="loginForm.controls['password'].errors">At least 6 characters needed</mat-error>
+        </mat-form-field>
+        <button type="submit" *ngIf="!(isLoading$ | async)" [disabled]="!loginForm.valid" mat-raised-button color="primary">Login</button>
+        <mat-spinner *ngIf="(isLoading$ | async)"></mat-spinner>
+    </form>
+</section>

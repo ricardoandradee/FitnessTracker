@@ -1,0 +1,24 @@
+<section>
+    <form fxLayout="column" fxLayoutAlign="center center" #f="ngForm" fxLayoutGap="10px" (ngSubmit)="onSubmit(f)">
+        <mat-form-field *ngIf="!(isLoading$ | async)">
+            <input type="email" matInput placeholder="E-mail" #emailInput="ngModel"
+                name="email" id="email" ngModel email required>
+                <mat-error *ngIf="!emailInput.hasError('required')">E-mail is invalid</mat-error>
+                <mat-error *ngIf="emailInput.hasError('required')">E-mail is required</mat-error>
+        </mat-form-field>
+        <mat-form-field *ngIf="!(isLoading$ | async)" hintLabel="Password should be at least 6 characters long.">
+            <input type="password" matInput placeholder="Password" #pwInput="ngModel"
+                name="password" id="password" ngModel required minlength="6">
+                <mat-hint align="end">{{ pwInput.value?.length }} / 6 </mat-hint>
+                <mat-error>Password should contain at least 6 characters long.</mat-error>
+        </mat-form-field>
+        <mat-form-field *ngIf="!(isLoading$ | async)">
+            <input matInput placeholder="Birthdate" [matDatepicker]="picker" [max]="maxDate" ngModel name="birthday">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-checkbox *ngIf="!(isLoading$ | async)" ngModel name="agree" required color="primary">Agree to Terms and Conditions.</mat-checkbox>
+        <button *ngIf="!(isLoading$ | async)" type="submit" [disabled]="f.invalid" mat-raised-button color="warn">Submit</button>
+        <mat-spinner *ngIf="(isLoading$ | async)"></mat-spinner>
+    </form>
+</section>
